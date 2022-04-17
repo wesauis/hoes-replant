@@ -49,5 +49,10 @@ public abstract class HoeMixin implements LogAware {
 
         // plant seed
         world.setBlockState(pos, Block.getBlockFromItem(seeds.getItem()).getDefaultState());
+
+        // damage hoe
+        stack.damage(1, miner, (e) -> {
+            e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
+        });
     }
 }
