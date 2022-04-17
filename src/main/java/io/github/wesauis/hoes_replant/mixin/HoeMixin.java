@@ -43,5 +43,11 @@ public abstract class HoeMixin implements LogAware {
     private void cropHarvested(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner, CallbackInfoReturnable<Boolean> cir) {
         var seeds = miner.getOffHandStack();
         if (!seeds.isIn(TAG_SEEDS)) return;
+
+        // consume seed
+        seeds.decrement(1);
+
+        // plant seed
+        world.setBlockState(pos, Block.getBlockFromItem(seeds.getItem()).getDefaultState());
     }
 }
