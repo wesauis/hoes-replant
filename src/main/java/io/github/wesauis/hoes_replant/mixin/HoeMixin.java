@@ -24,6 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class HoeMixin implements LogAware {
 
     private static final TagKey<Block> TAG_CROPS = BlockTags.CROPS;
+    private static final TagKey<Item> TAG_SEEDS = TagKey.of(Registry.ITEM_KEY, new Identifier("hoes_replant", "seeds"));
+
 
     @Inject(method = "postMine", at = @At("HEAD"))
     private void blockMined(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner, CallbackInfoReturnable<Boolean> cir) {
@@ -38,4 +40,8 @@ public abstract class HoeMixin implements LogAware {
         return HoeItem.class.getName().equals(getClass().getName());
     }
 
+    private void cropHarvested(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner, CallbackInfoReturnable<Boolean> cir) {
+        var seeds = miner.getOffHandStack();
+        if (!seeds.isIn(TAG_SEEDS)) return;
+    }
 }
