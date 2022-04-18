@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "hoes_replant",
+  "version": "${version}",
+  "name": "Hoe's Replant",
+  "description": "Vanilla style crop replanting",
+  "authors": [
+    "wesauis"
+  ],
+  "contact": {
+    "homepage": "https://github.com/wesauis/hoes-replant/tree/v${version}#readme",
+    "sources": "https://github.com/wesauis/hoes-replant/tree/v${version}"
+  },
+  "license": "MIT",
+  "icon": "assets/hoes_replant/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.wesauis.hoes_replant.HoesReplantMod"
+    ]
+  },
+  "mixins": [
+    "hoes_replant.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
