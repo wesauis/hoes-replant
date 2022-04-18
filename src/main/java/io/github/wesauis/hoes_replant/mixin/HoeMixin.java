@@ -1,6 +1,6 @@
 package io.github.wesauis.hoes_replant.mixin;
 
-import io.github.wesauis.hoes_replant.extension.LogAware;
+import io.github.wesauis.hoes_replant.HoesReplantMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
@@ -21,10 +21,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MiningToolItem.class)
-public abstract class HoeMixin implements LogAware {
+public abstract class HoeMixin {
 
     private static final TagKey<Block> TAG_CROPS = BlockTags.CROPS;
-    private static final TagKey<Item> TAG_SEEDS = TagKey.of(Registry.ITEM_KEY, new Identifier("hoes_replant", "seeds"));
+    private static final TagKey<Item> TAG_SEEDS = TagKey.of(Registry.ITEM_KEY, new Identifier(HoesReplantMod.MOD_ID, "seeds"));
 
 
     @Inject(method = "postMine", at = @At("HEAD"))
@@ -51,8 +51,8 @@ public abstract class HoeMixin implements LogAware {
         world.setBlockState(pos, Block.getBlockFromItem(seeds.getItem()).getDefaultState());
 
         // damage hoe
-        stack.damage(1, miner, (e) -> {
-            e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
+        stack.damage(1, miner, (entity) -> {
+            entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
         });
     }
 }
